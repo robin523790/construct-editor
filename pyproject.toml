@@ -1,0 +1,172 @@
+[build-system]
+requires = ["setuptools>=82.0.1", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "construct-editor"
+version = "0.2.0"
+description = "GUI (based on wxPython) for 'construct', which is a powerful declarative and symmetrical parser and builder for binary data."
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "Tim Riddermann" }
+]
+requires-python = ">=3.10"
+keywords = [
+    "gui",
+    "wx",
+    "wxpython",
+    "widget",
+    "binary",
+    "editor",
+    "construct",
+    "kaitai",
+    "declarative",
+    "data structure",
+    "struct",
+    "symmetric",
+    "parser",
+    "builder",
+    "parsing",
+    "building",
+    "pack",
+    "unpack",
+    "packer",
+    "unpacker",
+    "bitstring",
+    "bytestring",
+    "bitstruct",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Typing :: Typed",
+]
+dependencies = [
+    "arrow>=1.0.0",
+    "construct-typing==0.7.*",
+    "typing-extensions>=4.12.0",
+    "wrapt>=1.14.0",
+    "wxPython>=4.2.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/timrid/construct-editor"
+
+[project.gui-scripts]
+construct-editor = "construct_editor.main:main"
+
+[dependency-groups]
+dev = [
+    "setuptools>=82.0.1",
+    "ruff>=0.15.16",
+    "ty>=0.0.46",
+]
+
+[tool.setuptools.packages.find]
+include = [
+    "construct_editor",
+    "construct_editor.core",
+    "construct_editor.gallery",
+    "construct_editor.wx_widgets",
+]
+
+[tool.setuptools.package-data]
+construct_editor = ["py.typed"]
+
+[tool.uv.workspace]
+members = ["construct-editor"]
+
+[tool.uv.sources]
+construct-editor = { workspace = true }
+
+[tool.pyright]
+typeCheckingMode = "strict"
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/.*",
+    ".history",
+    ".venv",
+    ".venv*",
+    "build",
+    "dist",
+    "libs",
+]
+# reportMissingModuleSource = "none"  # Warnings beim Import von 'whcomm_cpp' ignorieren (see https://github.com/microsoft/pyright/issues/5950)
+
+# Diese Warnungen werden durch den Wechsel zu 'strict' typeCheckingMode ausgelöst.
+# Wir wollen diese nach und nach beheben, aber nicht alle auf einmal.
+# Gültige Werte: "error", "warning", "information", "none"
+reportMissingParameterType = "none"
+reportUnknownArgumentType = "none"
+reportUnknownMemberType = "none"
+reportUnknownParameterType = "none"
+reportUnknownVariableType = "none"
+reportMissingTypeArgument = "none"
+reportMissingTypeStubs = "none"
+reportUnnecessaryComparison = "none"
+reportUnknownLambdaType = "none"
+reportPrivateUsage = "none"
+reportIncompatibleMethodOverride = "none"
+reportIncompatibleVariableOverride = "none"
+# Diese unnötigen isinstance-Vergleiche erhöhen teilweise die Lesbarkeit oder erhöhen die Zukunftssicherheit des Codes,
+# da man dann explizit bei anderen Typen "raisen" kann. Wollen wir also nicht anmeckern.
+reportUnnecessaryIsInstance = "none"
+# Diese Warnungen sollten scharf geschaltet werden, werden aktuell noch ignoriert, da der Code aktuell so funktioniert.
+reportAttributeAccessIssue = "none"
+reportUnusedImport = "none"
+reportUnusedVariable = "none"
+reportOptionalMemberAccess = "none"
+reportArgumentType = "none"
+reportGeneralTypeIssues = "none"
+reportInvalidTypeArguments = "none"
+
+
+[tool.ty.src]
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/.*",
+    ".history",
+    ".venv",
+    ".venv*",
+    "build",
+    "dist",
+    "libs",
+]
+
+# Gültige Werte: "error", "warn", "ignore"
+[tool.ty.rules]
+invalid-argument-type = "ignore"
+invalid-assignment = "ignore"
+invalid-method-override = "ignore"
+invalid-type-arguments = "ignore"
+unresolved-attribute = "ignore"
+unused-type-ignore-comment = "ignore"
+
+[tool.ty.terminal]
+error-on-warning = true
+output-format = "concise"  # "full" | "concise" | "github" | "gitlab" | "junit"
+
+[tool.ruff]
+line-length = 140
+indent-width = 4
+output-format = "concise"  # "full" | "concise" | "grouped" | "json" | "junit" | "github" | "gitlab" | "pylint" | "azure"
+
+exclude = []
+
+[tool.ruff.lint]
+allowed-confusables = ["×", "–", "‘", "’"]
+
+# In der Reihenfolge, wie sie unter https://docs.astral.sh/ruff/rules/ aufgelistet sind.
+select = []
+ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/**" = []
