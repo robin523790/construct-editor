@@ -3,7 +3,7 @@
 ## [0.2.0] - 2026-06-09
 - bumped minimum required Python version to 3.10 (previousl: 3.8 which has reached end-of-life)
 - updated `typing_extensions` dependency to >=4.12.0 for Python 3.13 compatibility
-- removed direct `construct` dependency (as it is implicitly required by construct-typing)
+- removed `version.py`, use `importlib.metadata` instead to get the version number
 
 -------------------------------------------------------------------------------
 
